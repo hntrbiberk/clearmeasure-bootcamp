@@ -20,7 +20,8 @@ jobs:
     name: TDD
     if: >-
       github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success'
+      github.event.workflow_run.conclusion == 'success' &&
+      vars.OCTOPUS_PROJECT != ''
     concurrency:
       # All TDD deploys share one group (single environment), but only branch runs
       # can be cancelled. Master/main deploys are never cancelled -- they queue instead.
