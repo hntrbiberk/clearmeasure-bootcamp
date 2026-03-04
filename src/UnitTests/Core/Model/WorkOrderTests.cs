@@ -80,4 +80,36 @@ public class WorkOrderTests
         order.ChangeStatus(WorkOrderStatus.Assigned);
         Assert.That(order.Status, Is.EqualTo(WorkOrderStatus.Assigned));
     }
+
+    [Test]
+    public void CanReassign_Draft_ReturnsTrue()
+    {
+        var order = new WorkOrder();
+        order.Status = WorkOrderStatus.Draft;
+        Assert.That(order.CanReassign(), Is.True);
+    }
+
+    [Test]
+    public void CanReassign_Complete_ReturnsTrue()
+    {
+        var order = new WorkOrder();
+        order.Status = WorkOrderStatus.Complete;
+        Assert.That(order.CanReassign(), Is.True);
+    }
+
+    [Test]
+    public void CanReassign_Assigned_ReturnsFalse()
+    {
+        var order = new WorkOrder();
+        order.Status = WorkOrderStatus.Assigned;
+        Assert.That(order.CanReassign(), Is.False);
+    }
+
+    [Test]
+    public void CanReassign_InProgress_ReturnsFalse()
+    {
+        var order = new WorkOrder();
+        order.Status = WorkOrderStatus.InProgress;
+        Assert.That(order.CanReassign(), Is.False);
+    }
 }
